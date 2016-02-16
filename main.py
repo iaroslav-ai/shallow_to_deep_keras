@@ -18,8 +18,10 @@ model = Sequential()
 
 # hidden layer
 
-for depth in [5,10,20,30,40]:
+for param in [5,10,20,30,40]:
+    
     width = 10;
+    depth = param;
     
     for i in range(depth):
         
