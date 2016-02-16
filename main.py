@@ -18,24 +18,28 @@ model = Sequential()
 
 # hidden layer
 
-depth = 10;
-width = 4;
-
-for i in range(depth):
+for depth in [5,10,20,30,40]:
+    width = 10;
     
-    if i == 0:
-        model.add(Dense(width, input_dim=Tr["InputSize"]));
-    else:
-        model.add(Dense(width));
+    for i in range(depth):
         
-    model.add(Activation('relu'))
-    #model.add(Dropout(0.25))
-
-# output layer
-model.add(Dense(Tr["OutputSize"]));
-
-model.compile(loss='mean_absolute_error',
-              optimizer='adam')
-
-model.fit(Tr["X"], Tr["Y"], batch_size=512, nb_epoch=1000,
-          validation_data=(Val["X"], Val["Y"]))
+        if i == 0:
+            model.add(Dense(width, input_dim=Tr["InputSize"]));
+        else:
+            model.add(Dense(width));
+            
+        model.add(Activation('relu'))
+        #model.add(Dropout(0.25))
+    
+    # output layer
+    model.add(Dense(Tr["OutputSize"]));
+    
+    model.compile(loss='mean_absolute_error',
+                  optimizer='adam')
+    
+    tmp = model.fit(Tr["X"], Tr["Y"], batch_size=512, nb_epoch=1024,
+              validation_data=(Val["X"], Val["Y"]))
+    loss = tmp.history["val_loss"][-1];
+    
+    with open("results.txt", "a") as myfile:
+        myfile.writeln("Loss/depth: " + str(loss) + " / " + str(depth))
