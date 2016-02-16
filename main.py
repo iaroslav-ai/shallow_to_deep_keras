@@ -44,4 +44,4 @@ for param in [5,10,20,30,40]:
     loss = tmp.history["val_loss"][-1];
     
     with open("results.txt", "a") as myfile:
-        myfile.writeln("Loss/depth: " + str(loss) + " / " + str(depth))
+        myfile.write("Loss/depth: " + str(loss) + " / " + str(depth) + "\n")
